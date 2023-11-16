@@ -60,6 +60,8 @@ for TARGET in "mips64r5900el-ps2-elf"; do
     --disable-libssp \
     --disable-multilib \
     --disable-tls \
+    --disable-nls \
+    MAKEINFO=true \
     $TARG_XTRA_OPTS
 
   ## Compile and install.
