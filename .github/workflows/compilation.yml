@@ -20,6 +20,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Select known good Xcode version
+      if: matrix.os[0] == 'macos-latest'
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: '14.0.1'
+
     - name: Install Ubuntu texinfo bison flex
       if: matrix.os[0] == 'ubuntu-latest'
       run: |
