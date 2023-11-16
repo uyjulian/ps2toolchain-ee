@@ -20,12 +20,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Select known good Xcode version
-      if: matrix.os[0] == 'macos-latest'
-      uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: '14.0.1'
-
     - name: Install Ubuntu texinfo bison flex
       if: matrix.os[0] == 'ubuntu-latest'
       run: |
@@ -33,10 +27,10 @@ jobs:
         sudo apt-get -y install texinfo bison flex libgmp3-dev libmpfr-dev libmpc-dev
 
     - name: Install Mac texinfo bison flex
-      if: matrix.os[0] == 'macOS-latest'
+      if: matrix.os[0] == 'macos-latest'
       run: |
         brew update
-        brew install texinfo bison flex gnu-sed gsl gmp mpfr
+        brew install texinfo bison flex gnu-sed gsl gmp mpfr gcc@11
 
     - name: Install MSYS2 texinfo bison flex
       if: matrix.os[0] == 'windows-latest'
@@ -46,6 +40,13 @@ jobs:
         install: base-devel git make texinfo flex bison patch binutils mingw-w64-i686-gcc mpc-devel
         update: true
         shell: msys2 {0}
+
+
+    - name: Set env
+      if: matrix.os[0] == 'macos-latest'
+      run: |
+        echo "CC=gcc-11" >> $GITHUB_ENV
+        echo "CXX=g++-11" >> $GITHUB_ENV
 
     - name: Runs all the stages in the shell
       run: |
