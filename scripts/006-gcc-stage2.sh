@@ -32,26 +32,13 @@ fi
 
 cd "$REPO_FOLDER"
 
+## Download needed libs which will be built alongside GCC
+./contrib/download_prerequisites
+
 TARGET_ALIAS="ee"
 TARG_XTRA_OPTS=""
 TARGET_CFLAGS="-O2 -gdwarf-2 -gz"
 OSVER=$(uname)
-
-## If using MacOS Apple, set gmp, mpfr and mpc paths using TARG_XTRA_OPTS
-## (this is needed for Apple Silicon but we will do it for all MacOS systems)
-if [ "$(uname -s)" = "Darwin" ]; then
-  ## Check if using brew
-  if command -v brew &> /dev/null; then
-    export PATH="$(brew --prefix gnu-sed)/libexec/gnubin:$PATH"
-    TARG_XTRA_OPTS="--with-system-zlib --with-gmp=$(brew --prefix gmp) --with-mpfr=$(brew --prefix mpfr) --with-mpc=$(brew --prefix libmpc)"
-  elif command -v port &> /dev/null; then
-  ## Check if using MacPorts
-    MACPORT_BASE=$(dirname `port -q contents gmp|grep gmp.h`|sed s#/include##g)
-    echo Macport base is $MACPORT_BASE
-    alias sed='gsed'
-    TARG_XTRA_OPTS="--with-system-zlib --with-gmp=$MACPORT_BASE --with-mpfr=$MACPORT_BASE --with-mpc=$MACPORT_BASE"
-  fi
-fi
 
 ## Determine the maximum number of processes that Make can work with.
 PROC_NR=$(getconf _NPROCESSORS_ONLN)
