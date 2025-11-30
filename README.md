@@ -15,7 +15,7 @@ This program will automatically build and install a EE compiler, which is used i
 
 ## What these scripts do
 
-These scripts download (with `git clone`) and install [binutils 2.36.0](http://www.gnu.org/software/binutils/ "binutils") (ee), [gcc 11.1.0](https://gcc.gnu.org/ "gcc") (ee), [newlib 4.1.0](https://sourceware.org/newlib/ "newlib") (ee).
+These scripts download (with `git clone`) and install [binutils 2.45.1](http://www.gnu.org/software/binutils/ "binutils") (ee), [gcc 15.2.0](https://gcc.gnu.org/ "gcc") (ee), [newlib 4.5.0](https://sourceware.org/newlib/ "newlib") (ee).
 
 ## Requirements
 
